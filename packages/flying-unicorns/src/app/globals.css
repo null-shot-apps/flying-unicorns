@@ -1,0 +1,161 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Flying Unicorn Animation - Diagonal from bottom-left to top-right */
+.flying-unicorn-diagonal {
+  position: fixed;
+  bottom: -100px;
+  left: -100px;
+  font-size: 4rem;
+  z-index: 1000;
+  animation: flyDiagonal 3s ease-in-out forwards;
+  pointer-events: none;
+}
+
+@keyframes flyDiagonal {
+  0% {
+    bottom: -100px;
+    left: -100px;
+    transform: rotate(-45deg) scale(1);
+    opacity: 1;
+  }
+  25% {
+    transform: rotate(-30deg) scale(1.1);
+  }
+  50% {
+    transform: rotate(-15deg) scale(1.2);
+  }
+  75% {
+    transform: rotate(0deg) scale(1.1);
+  }
+  100% {
+    bottom: calc(100vh + 100px);
+    left: calc(100vw + 100px);
+    transform: rotate(15deg) scale(1);
+    opacity: 0.8;
+  }
+}
+
+/* Sparkle effects */
+.flying-unicorn-diagonal .sparkle {
+  position: absolute;
+  font-size: 1.5rem;
+  animation: sparkle 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.flying-unicorn-diagonal .sparkle:nth-child(2) {
+  top: -20px;
+  left: -30px;
+  animation-delay: 0.5s;
+}
+
+.flying-unicorn-diagonal .sparkle:nth-child(3) {
+  top: 20px;
+  left: -20px;
+  animation-delay: 1s;
+}
+
+.flying-unicorn-diagonal .sparkle:nth-child(4) {
+  top: -10px;
+  left: 40px;
+  animation-delay: 1.5s;
+}
+
+@keyframes sparkle {
+  0%, 100% {
+    opacity: 0;
+    transform: scale(0.5) rotate(0deg);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2) rotate(180deg);
+  }
+}
+
+/* Magical Button Styles */
+.magical-button {
+  background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #ffeaa7);
+  background-size: 400% 400%;
+  animation: gradientShift 3s ease infinite;
+  border: none;
+  color: white;
+  font-weight: bold;
+  padding: 1rem 2rem;
+  border-radius: 50px;
+  font-size: 1.25rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.magical-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3);
+}
+
+.magical-button:active {
+  transform: translateY(0);
+}
+
+.magical-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+  transform: none;
+}
+
+.magical-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.5s;
+}
+
+.magical-button:hover::before {
+  left: 100%;
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+
+
