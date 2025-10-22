@@ -1,9 +1,32 @@
+'use client';
+
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 
 export default function Home() {
+  const [isFlying, setIsFlying] = useState(false);
+
+  const triggerUnicornFlight = () => {
+    setIsFlying(true);
+    // Reset animation after it completes
+    setTimeout(() => setIsFlying(false), 3000);
+  };
+
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
+    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 relative overflow-hidden">
+      {/* Flying Unicorn */}
+      <div 
+        className={`fixed top-1/2 text-6xl z-50 pointer-events-none ${
+          isFlying ? 'unicorn-flying' : ''
+        }`}
+        style={{
+          transform: isFlying ? '' : 'translateX(-100px) translateY(-50%)'
+        }}
+      >
+        🦄
+      </div>
+
       <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
         <Image
           className="dark:invert"
@@ -13,6 +36,21 @@ export default function Home() {
           height={38}
           priority
         />
+        
+        {/* Flying Unicorn Button */}
+        <div className="flex flex-col items-center gap-4">
+          <button
+            onClick={triggerUnicornFlight}
+            disabled={isFlying}
+            className="unicorn-button bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 disabled:from-gray-400 disabled:to-gray-500 text-white font-bold py-4 px-8 rounded-full text-xl shadow-lg transform transition-all duration-200 hover:scale-105 active:scale-95 disabled:scale-100 disabled:cursor-not-allowed"
+          >
+            {isFlying ? '🦄 Flying...' : '🦄 Make Unicorn Fly!'}
+          </button>
+          <p className="text-sm text-gray-600 dark:text-gray-400 text-center">
+            Click the button to watch a magical unicorn fly across the screen!
+          </p>
+        </div>
+
         <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
           <li className="mb-2 tracking-[-.01em]">
             Get started by editing{" "}
@@ -102,3 +140,6 @@ export default function Home() {
     </div>
   );
 }
+
+
+
